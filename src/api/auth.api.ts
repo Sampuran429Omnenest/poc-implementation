@@ -7,10 +7,13 @@ import type {
     ValidateOtpResponse,
 } from '../shared/types/userAuthType';
 
+
 export const preAuthHandshake = async (): Promise<PreAuthResponse> => {
     const response = await api.post<PreAuthResponse>(
-        '/v1/api/auth/pre-auth',
-        {},
+        '/v1/api/auth/pre-auth-handshake',
+        {
+            devicePublicKey: import.meta.env.VITE_STATIC_PUBLIC_KEY,
+        },
         { headers: getAuthHeaders() }
     );
     return response.data;
@@ -38,3 +41,7 @@ export const validateOtp = async (payload: OtpPayload): Promise<ValidateOtpRespo
     );
     return response.data;
 };
+
+
+
+

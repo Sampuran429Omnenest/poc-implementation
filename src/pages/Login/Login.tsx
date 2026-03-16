@@ -8,9 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
     const { step, loading, error, initiateHandshake, submitCredentials, submitOtp } = useLoginFlow();
 
-    useEffect(() => {
-        initiateHandshake();
-    }, []);
+    useEffect(() => { initiateHandshake(); }, []);
 
     useEffect(() => {
         if (step === 'success') navigate('/dashboard', { replace: true });
@@ -19,18 +17,10 @@ const Login = () => {
     return (
         <>
             {step === 'credentials' && (
-                <LoginForm
-                    onSubmit={submitCredentials}
-                    loading={loading}
-                    error={error}
-                />
+                <LoginForm onSubmit={submitCredentials} loading={loading} error={error} />
             )}
             {step === 'otp' && (
-                <OtpForm
-                    onSubmit={submitOtp}
-                    loading={loading}
-                    error={error}
-                />
+                <OtpForm onSubmit={submitOtp} loading={loading} error={error} />
             )}
         </>
     );
