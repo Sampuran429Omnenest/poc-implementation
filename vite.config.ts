@@ -1,0 +1,25 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path'; // Make sure this is here if you use @ aliases
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  // Add this line - MUST match your repository name exactly
+  base: "/poc-imp/", 
+  plugins: [tailwindcss(),react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  server: {
+    proxy: {
+      '/api-proxy': {
+        target: 'https://preprodapisix.omnenest.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-proxy/, ''),
+        secure: false,
+      },
+    },
+  },
+});
