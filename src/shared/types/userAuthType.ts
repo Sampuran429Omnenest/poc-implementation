@@ -6,12 +6,21 @@ export interface OtpPayload{
     username:string
     otp:number
 }
+export interface ForgetUserIdPayload{
+    panNumber:string
+    emailId:string
+}
+export interface ForgetPasswordPayload{
+    panNumber:string,
+    username:string
+}
 export interface PreAuthResponse{
     message:string
     bffPublicKey:string
 }
 export type LoginResponse=void
-
+export type ForgetUserIdResponse=void
+export type ForgetPasswordResponse=void
 export interface KraResponse {
     kraMessage: string
     kraUrl: string[]
@@ -46,8 +55,7 @@ export interface ValidateOtpResponse{
     isPasswordExpired:boolean
     indexEnabledExchanges:string[]|null
 }
-export type LoginStep = 'idle' | 'credentials' | 'otp' | 'success';
-
+export type LoginStep = 'idle' | 'credentials' | 'otp' | 'forgot-userid' | 'forgot-password' | 'success';
 //currently keeping it as type and not interface when there are things to be added
 export type  AuthUser=
     Pick<ValidateOtpResponse,

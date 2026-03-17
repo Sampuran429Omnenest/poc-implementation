@@ -9,11 +9,13 @@ import qrSvg from '../../../assets/qr.svg';
 
 interface LoginFormProps {
     onSubmit: (payload: LoginPayload) => Promise<void>;
+    onForgotUserId: () => void; 
+    onForgotPassword: () => void; 
     loading: boolean;
     error: string | null;
 }
 
-export const LoginForm = ({ onSubmit, loading, error }: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, loading, error,onForgotUserId }: LoginFormProps) => {
     const {
         register,
         handleSubmit,
@@ -162,7 +164,11 @@ export const LoginForm = ({ onSubmit, loading, error }: LoginFormProps) => {
                             </button>
 
                             <div className="flex justify-between items-center w-full">
-                                <button type="button" className="text-[#0F62FE] hover:text-[#0F62FE] text-xs font-semibold">
+                                <button 
+                                    type="button" 
+                                    onClick={onForgotUserId} 
+                                    className="text-[#0F62FE] hover:underline text-xs font-semibold"
+                                >
                                     Forgot user id or password?
                                 </button>
                                 <button type="button" className="text-[#0F62FE] hover:text-[#0F62FE] text-xs font-semibold">

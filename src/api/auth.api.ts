@@ -5,6 +5,10 @@ import type {
     LoginPayload,
     OtpPayload,
     ValidateOtpResponse,
+    ForgetUserIdPayload,
+    ForgetUserIdResponse,
+    ForgetPasswordPayload,
+    ForgetPasswordResponse,
 } from '../shared/types/userAuthType';
 
 export const preAuthHandshake = async (): Promise<PreAuthResponse> => {
@@ -40,7 +44,23 @@ export const validateOtp = async (payload: OtpPayload): Promise<ValidateOtpRespo
     );
     return response.data;
 };
-
-
-
-
+export const forgetUserId=async (payload:ForgetUserIdPayload):Promise<ForgetUserIdResponse>=>{
+    await api.post(
+        '/v1/api/auth/forgot-user-id',
+        {
+            panNumber:payload.panNumber,
+            emailId:payload.emailId,
+        },
+        {headers:getAuthHeaders()}
+    );
+};
+export const forgetUserPassword=async (payload:ForgetPasswordPayload):Promise<ForgetPasswordResponse>=>{
+    await api.post(
+        '/v1/api/auth/forgot-password',
+        {
+            panNumber:payload.panNumber,
+            username:payload.username,
+        },
+        {headers:getAuthHeaders()}
+    );
+};

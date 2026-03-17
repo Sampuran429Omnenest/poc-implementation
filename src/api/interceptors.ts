@@ -21,7 +21,7 @@ export const setupInterceptors = () => {
 
             if (status === 401) {
                 reset();
-                window.location.href = '/login';
+                window.location.href = '/'; //for now keeping it / it should be again redirected to /login if wrong 
             }
 
             const message =

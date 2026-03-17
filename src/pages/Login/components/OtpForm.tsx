@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import preferences_setup from '../../../assets/Preferences_Setup.svg';
 import logo from '../../../assets/logo.svg';
-
 interface OtpFormProps {
     onSubmit: (otp: number) => Promise<void>;
     loading: boolean;
@@ -59,7 +58,9 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
 
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
+
             <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
+
                 <div
                     className="absolute inset-0"
                     style={{
@@ -67,6 +68,7 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                         borderImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%) 1',
                     }}
                 />
+
                 <div
                     className="relative flex flex-col items-center justify-center gap-8 text-center shadow-[0_20px_50px_rgba(15,98,254,0.2)]"
                     style={{
@@ -95,7 +97,8 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                             background: 'radial-gradient(ellipse at center, rgba(15,98,254,0.6) 0%, transparent 70%)',
                         }}
                     />
-                    <div className="relative z-10 flex flex-col items-center justify-center gap-6 max-w-md px-8 w-full h-full">
+                    <div className="relative z-10 flex flex-col items-center justify-center gap-6 max-w-md px-12 w-full h-full">
+
                         <div className="flex flex-col items-center gap-3 text-center">
                             <h2 className="text-white text-[clamp(24px,3vw,32px)] font-semibold leading-tight">
                                 Welcome to the Future of Trading
@@ -104,21 +107,23 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                                 Secure, fast, and reliable access to your portfolio.
                             </p>
                         </div>
+
                         <img
                             src={preferences_setup}
                             alt="Trading Illustration"
                             className="h-[25%] min-h-[180px] object-contain"
                         />
+
                         <div className="flex gap-2 mt-4">
                             <div className="w-4 h-2 rounded-full bg-white/40" />
                             <div className="w-2 h-2 rounded-full bg-white" />
                             <div className="w-2 h-2 rounded-full bg-white" />
                         </div>
+
                     </div>
                 </div>
             </div>
-
-            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-8 border-l border-gray-50">
+            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-12 border-l border-gray-50">
                 <div className="w-full max-w-[350px] flex flex-col gap-10">
                     <div className="flex flex-col gap-2">
                         <img
@@ -189,7 +194,7 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                         type="button"
                         onClick={handleSubmit}
                         disabled={!allFilled || loading}
-                        className={`w-full h-[48px] text-base font-semibold rounded transition-all active:scale-[0.98]
+                        className={`w-full h-[48px] text-[16px] font-semibold rounded-[4px] transition-all active:scale-[0.98]
                             ${allFilled && !loading
                                 ? 'bg-[#0F62FE] text-white hover:bg-blue-700 cursor-pointer'
                                 : 'bg-[#ECEDEE] text-[#A0A0A0] cursor-not-allowed'
@@ -197,6 +202,7 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                     >
                         {loading ? 'Verifying...' : 'Verify'}
                     </button>
+
                 </div>
             </div>
         </div>
