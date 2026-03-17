@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import preferences_setup from '../../../assets/Preferences_Setup.svg';
+//import preferences_setup from '../../../assets/Preferences_Setup.svg';
 import logo from '../../../assets/logo.svg';
+import { AdPanel } from './AdPanel';
 interface OtpFormProps {
     onSubmit: (otp: number) => Promise<void>;
     loading: boolean;
@@ -59,7 +60,7 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
 
-            <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
+            {/* <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
 
                 <div
                     className="absolute inset-0"
@@ -122,14 +123,15 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
 
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <AdPanel/>
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-12 border-l border-gray-50">
                 <div className="w-full max-w-[350px] flex flex-col gap-10">
                     <div className="flex flex-col gap-2">
                         <img
                             src={logo}
                             alt="Logo"
-                            className="w-[140px] h-[40px] object-contain mb-2"
+                            className="relative right-14 w-[140px] h-[40px] object-contain mb-1"
                         />
                         <h1 className="text-[#2A2A2B] text-xl font-semibold">
                             Welcome to Nest App

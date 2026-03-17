@@ -40,6 +40,8 @@ src/
         Login/
             Login.tsx
             components/
+                AdPanel.tsx(Reusable)
+                ErrorAlert.tsx(Reusable)
                 ForgotUserIdForm.tsx
                 ForgotUserPasswordForm.tsx
                 LoginForm.tsx

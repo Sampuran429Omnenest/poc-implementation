@@ -2,11 +2,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import logo from '../../../assets/logo.svg';
-import preferences_setup from '../../../assets/Preferences_Setup.svg';
+//import preferences_setup from '../../../assets/Preferences_Setup.svg';
 import type { ForgetPasswordPayload } from '../../../shared/types/userAuthType';
+import { AdPanel } from './AdPanel';
 
 const schema = z.object({
-    panNumber: z.string().min(10).max(10),
+    panNumber:z.string().trim().length(10,"PAN must be 10 characters").regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Please use ALL CAPS for PAN"),
     username: z.string().min(1, "Username is required"),
 });
 
@@ -25,21 +26,22 @@ export const ForgotUserPasswordForm = ({ onSubmit, onBack, loading, error, succe
 
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
-            {/* Left Panel - Exact copy of LoginForm */}
-            <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden">
+            
+            {/* <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden">
                 <div className="absolute inset-0" style={{ border: '1px solid transparent', borderImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%) 1' }} />
                 <div className="relative flex flex-col items-center justify-center gap-8 text-center shadow-2xl" style={{ width: '90%', maxWidth: '667px', height: '85vh', borderRadius: 24, backgroundColor: '#0F62FE', overflow: 'hidden' }}>
+                    <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`, backgroundSize: '48px 48px' }} />
                     <div className="relative z-10 flex flex-col items-center justify-center gap-6 px-8">
-                        <h2 className="text-white text-[clamp(24px,3vw,32px)] font-semibold leading-tight">Security Reset</h2>
+                        <h2 className="text-white text-[clamp(24px,3vw,32px)] font-semibold leading-tight">Account Recovery</h2>
                         <img src={preferences_setup} alt="Illustration" className="h-[25%] min-h-[180px] object-contain" />
                     </div>
                 </div>
-            </div>
-
+            </div> */}
+                <AdPanel/>
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-8">
                 <div className="w-full max-w-[350px] flex flex-col gap-10">
                     <div className="flex flex-col gap-2">
-                        <img src={logo} alt="Logo" className="w-[140px] h-[40px] object-contain mb-2" />
+                        <img src={logo} alt="Logo" className="relative right-14 w-[140px] h-[40px] object-contain mb-1" />
                         <h1 className="text-[#2A2A2B] text-[20px] font-semibold">Forgot your Password</h1>
                     </div>
 
