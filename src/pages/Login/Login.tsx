@@ -10,7 +10,7 @@ import { ChangeUserPasswordForm } from './components/ChangeUserPasswordForm';
 const Login = () => {
     const navigate = useNavigate();
     const {step,loading:loginLoading, error:loginError,setStep, initiateHandshake, submitCredentials, submitOtp} = useLoginFlow();
-    const {loading:forgotLoading,error:forgotError,successMessage,recoveryType,setSuccessMessage,forgetUserId,forgetUserPassword,changeUserPassword}=useForgotFlow();
+    const {loading:forgotLoading,error:forgotError,successMessage,recoveryType,setSuccessMessage,forgetUserId,forgetUserPassword,changeUserPassword,setRecoveryType}=useForgotFlow();
     const isLoading = loginLoading || forgotLoading;
     const currentError = loginError || forgotError;
     useEffect(() => { initiateHandshake(); }, []);
@@ -23,6 +23,7 @@ const Login = () => {
             await submitOtp(otp);
         if(recoveryType==='userid'){
             setSuccessMessage("User ID sent to your registered mobile/email.");
+            setRecoveryType(null);
             setStep('credentials')
         }else if(recoveryType==='password'){
             setStep('change-password')
@@ -47,6 +48,7 @@ const Login = () => {
                 <ForgotUserIdForm 
                     onSubmit={forgetUserId} 
                     onBack={() => setStep('credentials')}
+                    onSwitchToPassword={() => setStep('forgot-password')} 
                     loading={isLoading} 
                     error={currentError}
                     successMessage={successMessage}
@@ -57,6 +59,7 @@ const Login = () => {
                     onSubmit={forgetUserPassword} 
                     onBack={() => setStep('credentials')}
                     loading={isLoading} 
+                    onSwitchToUserId={() => setStep('forgot-userid')}
                     error={currentError}
                     successMessage={successMessage}
                 />

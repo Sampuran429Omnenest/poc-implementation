@@ -39,32 +39,7 @@ export const useLoginFlow=()=>{
             setLoading(false)
         }
     }
-    // const forgetUserId=async(payload:ForgetUserIdPayload)=>{
-    //     setLoading(true)
-    //     setError(null)
-    //     setSuccessMessage(null)
-    //     try {
-    //         await forgetUerIdApi(payload)
-    //         setSuccessMessage("User Id has been sent to your registered email/mobile.")
-    //     } catch (err) {
-    //         setError((err as Error).message)
-    //     }finally{
-    //         setLoading(false)
-    //     }
-    // }
-    // const forgetUserPassword=async(payload:ForgetPasswordPayload)=>{
-    //     setLoading(true)
-    //     setError(null)
-    //     setSuccessMessage(null)
-    //     try {
-    //         await forgetUserPasswordApi(payload)
-    //         setSuccessMessage("Password reset mail has been sent.")
-    //     } catch (err) {
-    //         setError((err as Error).message)
-    //     }finally{
-    //         setLoading(false)
-    //     }
-    // }
+   
     const submitOtp=async(otp:number)=>{
         if(!username) return
         setLoading(true)

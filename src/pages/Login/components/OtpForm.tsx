@@ -67,71 +67,6 @@ export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
 
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
-
-            {/* <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
-
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        border: '1px solid transparent',
-                        borderImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%) 1',
-                    }}
-                />
-
-                <div
-                    className="relative flex flex-col items-center justify-center gap-8 text-center shadow-[0_20px_50px_rgba(15,98,254,0.2)]"
-                    style={{
-                        width: '90%',
-                        maxWidth: '667px',
-                        height: '85vh',
-                        maxHeight: '890px',
-                        borderRadius: 24,
-                        backgroundColor: '#0F62FE',
-                        overflow: 'hidden',
-                    }}
-                >
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            backgroundImage: `
-                                linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-                                linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
-                            `,
-                            backgroundSize: '48px 48px',
-                        }}
-                    />
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            background: 'radial-gradient(ellipse at center, rgba(15,98,254,0.6) 0%, transparent 70%)',
-                        }}
-                    />
-                    <div className="relative z-10 flex flex-col items-center justify-center gap-6 max-w-md px-12 w-full h-full">
-
-                        <div className="flex flex-col items-center gap-3 text-center">
-                            <h2 className="text-white text-[clamp(24px,3vw,32px)] font-semibold leading-tight">
-                                Welcome to the Future of Trading
-                            </h2>
-                            <p className="text-white/70 text-sm">
-                                Secure, fast, and reliable access to your portfolio.
-                            </p>
-                        </div>
-
-                        <img
-                            src={preferences_setup}
-                            alt="Trading Illustration"
-                            className="h-[25%] min-h-[180px] object-contain"
-                        />
-
-                        <div className="flex gap-2 mt-4">
-                            <div className="w-4 h-2 rounded-full bg-white/40" />
-                            <div className="w-2 h-2 rounded-full bg-white" />
-                            <div className="w-2 h-2 rounded-full bg-white" />
-                        </div>
-
-                    </div>
-                </div>
-            </div> */}
             <AdPanel/>
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-12 border-l border-gray-50">
                 <div className="w-full max-w-[350px] flex flex-col gap-10">
@@ -147,7 +82,13 @@ export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <h2 className="text-[#2A2A2B] text-base font-semibold">Enter OTP</h2>
+                        <h2 className="text-[#2A2A2B] text-base font-semibold">
+    {purpose === 'password-reset'
+        ? 'Forgot your password'
+        : purpose === 'userid-recovery'
+        ? 'Forgot your User ID'
+        : 'Enter OTP'}
+</h2>
                         <p className="text-[#555555] text-xs">OTP sent on your registered number</p>
                     </div>
 
