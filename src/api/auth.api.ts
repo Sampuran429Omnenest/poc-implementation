@@ -9,6 +9,7 @@ import type {
     ForgetUserIdResponse,
     ForgetPasswordPayload,
     ForgetPasswordResponse,
+    changePasswordPayload,
 } from '../shared/types/userAuthType';
 
 export const preAuthHandshake = async (): Promise<PreAuthResponse> => {
@@ -44,6 +45,7 @@ export const validateOtp = async (payload: OtpPayload): Promise<ValidateOtpRespo
     );
     return response.data;
 };
+
 export const forgetUserId=async (payload:ForgetUserIdPayload):Promise<ForgetUserIdResponse>=>{
     await api.post(
         '/v1/api/auth/forgot-user-id',
@@ -54,6 +56,7 @@ export const forgetUserId=async (payload:ForgetUserIdPayload):Promise<ForgetUser
         {headers:getAuthHeaders()}
     );
 };
+
 export const forgetUserPassword=async (payload:ForgetPasswordPayload):Promise<ForgetPasswordResponse>=>{
     await api.post(
         '/v1/api/auth/forgot-password',
@@ -64,3 +67,15 @@ export const forgetUserPassword=async (payload:ForgetPasswordPayload):Promise<Fo
         {headers:getAuthHeaders()}
     );
 };
+
+export const changeUserPassword=async (payload:changePasswordPayload):Promise<void>=>{
+    await api.post(
+        '/v1/api/auth/change-password',
+        {
+            oldPassword:payload.oldPassword,
+            newPassword:payload.newPassword,
+        },
+        {headers:getAuthHeaders()},
+    );
+};
+

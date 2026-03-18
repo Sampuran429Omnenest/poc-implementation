@@ -5,8 +5,9 @@ import { PasswordField } from './PasswordField';
 import { ErrorAlert } from './ErrorAlert';
 import type { LoginPayload } from '../../../shared/types/userAuthType';
 import logo from '../../../assets/logo.svg';
-import preferences_setup from '../../../assets/Preferences_Setup.svg';
+//import preferences_setup from '../../../assets/Preferences_Setup.svg';
 import qrSvg from '../../../assets/qr.svg';
+import { AdPanel } from './AdPanel';
 
 interface LoginFormProps {
     onSubmit: (payload: LoginPayload) => Promise<void>;
@@ -14,14 +15,15 @@ interface LoginFormProps {
     onForgotPassword: () => void;
     loading: boolean;
     error: string | null;
+    successMessage:string|null;
 }
 
 export const LoginForm = ({ 
-    onSubmit, 
-    onForgotUserId, 
-    onForgotPassword, 
+    onSubmit,  
+    onForgotUserId,
     loading, 
-    error 
+    error,
+    successMessage
 }: LoginFormProps) => {
     const {
         register,
@@ -43,7 +45,7 @@ export const LoginForm = ({
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
            
-            <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
+            {/* <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">
                 <div
                     className="relative flex flex-col items-center justify-center gap-8 text-center shadow-[0_20px_50px_rgba(15,98,254,0.2)]"
                     style={{
@@ -82,7 +84,8 @@ export const LoginForm = ({
                         />
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <AdPanel/>
 
         
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-8 border-l border-gray-50">
@@ -99,9 +102,20 @@ export const LoginForm = ({
                     </div>
 
                     <form onSubmit={handleSubmit(submit)} noValidate className="flex flex-col gap-8">
-                        {/* Input Fields Container */}
+                        
                         <div className="flex flex-col gap-6">
-                            <div className="flex flex-col gap-2">
+                           {successMessage && (
+                            <div className="flex items-center gap-4 w-full px-4 py-3 rounded-[4px] bg-[#E9FAF0] border border-[#ccf5df]"
+                                role="status">
+                                    <svg className="w-5 h-5 text-[#1A8245] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                    </svg>
+                                    <p className="text-[#2A2A2B] text-[13px] font-medium leading-tight">
+                                        {successMessage}
+                                    </p>
+                            </div>
+                           )}
+                           <div className="flex flex-col gap-2">
                                 <label className="text-[#555555] text-sm font-medium">
                                     Mobile no. / Email / Client ID
                                 </label>
@@ -117,7 +131,6 @@ export const LoginForm = ({
                                     <p className="text-red-500 text-[12px]">{errors.username.message}</p>
                                 )}
                             </div>
-                            
                             <PasswordField
                                 {...register('password')}
                                 error={errors.password?.message}
@@ -146,20 +159,20 @@ export const LoginForm = ({
                                 {loading ? 'Logging in...' : 'Login'}
                             </button>
 
-                            <div className="flex flex-col items-center gap-3">
+                            <div className="flex flex-row items-center justify-between w-full gap-2">
                                 <div className="flex items-center gap-2 text-[#0F62FE] text-[12px] font-semibold">
-                                    <button type="button" onClick={onForgotUserId} className="hover:underline">Forgot User ID?</button>
-                                    <span className="text-gray-300">|</span>
-                                    <button type="button" onClick={onForgotPassword} className="hover:underline">Forgot Password?</button>
+                                    <button type="button" onClick={onForgotUserId} className="hover:underline text-left">Forgot user ID or password?</button>
+                                    {/* <span className="text-gray-300">|</span> */}
+                                    {/* <button type="button" onClick={onForgotPassword} className="hover:underline">Forgot Password?</button> */}
                                 </div>
-                                <button type="button" className="text-[#0F62FE] text-[12px] font-semibold hover:underline">
+                                <button type="button" className="text-[#0F62FE] text-[12px] font-semibold hover:underline  whitespace-nowrap">
                                     Guest login
                                 </button>
                             </div>
                         </div>
 
                         
-                        {error && <ErrorAlert message={error} />}
+                        {error && <ErrorAlert message={"Invalid username or password"} />}
                     </form>
                 </div>
             </div>

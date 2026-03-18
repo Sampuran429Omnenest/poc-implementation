@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { useAuthStore } from "../../store/useAuthStore"
-import { login, preAuthHandshake, validateOtp,forgetUserId as forgetUerIdApi,forgetUserPassword as forgetUserPasswordApi} from "../../api/auth.api"
-import type { AuthUser, ForgetPasswordPayload, ForgetUserIdPayload, LoginPayload } from "../types/userAuthType"
+import { login, preAuthHandshake, validateOtp} from "../../api/auth.api"
+import type { AuthUser, LoginPayload } from "../types/userAuthType"
 
 export const useLoginFlow=()=>{
     const [loading,setLoading]=useState(false)
     const [error,setError]=useState<string|null>(null)
-    const [successMessage,setSuccessMessage]=useState<string|null>(null)
+    //const [successMessage,setSuccessMessage]=useState<string|null>(null)
     const {
         step,
         username,
@@ -39,32 +39,32 @@ export const useLoginFlow=()=>{
             setLoading(false)
         }
     }
-    const forgetUserId=async(payload:ForgetUserIdPayload)=>{
-        setLoading(true)
-        setError(null)
-        setSuccessMessage(null)
-        try {
-            await forgetUerIdApi(payload)
-            setSuccessMessage("User Id has been sent to your registered email/mobile.")
-        } catch (err) {
-            setError((err as Error).message)
-        }finally{
-            setLoading(false)
-        }
-    }
-    const forgetUserPassword=async(payload:ForgetPasswordPayload)=>{
-        setLoading(true)
-        setError(null)
-        setSuccessMessage(null)
-        try {
-            await forgetUserPasswordApi(payload)
-            setSuccessMessage("Password reset mail has been sent.")
-        } catch (err) {
-            setError((err as Error).message)
-        }finally{
-            setLoading(false)
-        }
-    }
+    // const forgetUserId=async(payload:ForgetUserIdPayload)=>{
+    //     setLoading(true)
+    //     setError(null)
+    //     setSuccessMessage(null)
+    //     try {
+    //         await forgetUerIdApi(payload)
+    //         setSuccessMessage("User Id has been sent to your registered email/mobile.")
+    //     } catch (err) {
+    //         setError((err as Error).message)
+    //     }finally{
+    //         setLoading(false)
+    //     }
+    // }
+    // const forgetUserPassword=async(payload:ForgetPasswordPayload)=>{
+    //     setLoading(true)
+    //     setError(null)
+    //     setSuccessMessage(null)
+    //     try {
+    //         await forgetUserPasswordApi(payload)
+    //         setSuccessMessage("Password reset mail has been sent.")
+    //     } catch (err) {
+    //         setError((err as Error).message)
+    //     }finally{
+    //         setLoading(false)
+    //     }
+    // }
     const submitOtp=async(otp:number)=>{
         if(!username) return
         setLoading(true)
@@ -97,15 +97,15 @@ export const useLoginFlow=()=>{
         }
     }
     return{
-        step,
+         step,
         loading,
         error,
-        successMessage,
+        //successMessage,
         setStep,
         initiateHandshake,
         submitCredentials,
-        forgetUserId,
-        forgetUserPassword,
+        // forgetUserId,
+        // forgetUserPassword,
         submitOtp
     }
 }

@@ -6,12 +6,13 @@ interface OtpFormProps {
     onSubmit: (otp: number) => Promise<void>;
     loading: boolean;
     error: string | null;
+    purpose: 'login' | 'userid-recovery' | 'password-reset';
 }
 
 const OTP_LENGTH = 4;
 const RESEND_SECONDS = 30;
 
-export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
+export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
     const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''));
     const [timer, setTimer]   = useState(RESEND_SECONDS);
     const inputRefs           = useRef<(HTMLInputElement | null)[]>([]);
@@ -54,6 +55,13 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
         onSubmit(otp);
     };
 
+    //dynamically change this 
+    const getButtonText=()=>{
+        if(loading) return 'Verifying...'
+        if(purpose==='password-reset') return 'Verify & Set Password'
+        if(purpose==='userid-recovery') return 'Verify & Get User ID';
+        return 'Login'  
+    }
     const allFilled = digits.every(d => d !== '');
     const hasError  = !!error;
 
@@ -202,7 +210,7 @@ export const OtpForm = ({ onSubmit, loading, error }: OtpFormProps) => {
                                 : 'bg-[#ECEDEE] text-[#A0A0A0] cursor-not-allowed'
                             }`}
                     >
-                        {loading ? 'Verifying...' : 'Verify'}
+                        {getButtonText()}
                     </button>
 
                 </div>

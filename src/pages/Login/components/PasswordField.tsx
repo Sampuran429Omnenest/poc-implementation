@@ -2,16 +2,17 @@ import { forwardRef, useState } from 'react';
 
 interface PasswordFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     error?: string;
+    label?:string;
 }
 
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
-    ({ error, ...props }, ref) => {
+    ({ error,label="Password", ...props }, ref) => {
         const [show, setShow] = useState(false);
 
         return (
             <div className="flex flex-col gap-2">
                 <label className="text-[#555555] text-sm font-medium">
-                    Password
+                    {label}
                 </label>
                 <div className="relative">
                     <input
