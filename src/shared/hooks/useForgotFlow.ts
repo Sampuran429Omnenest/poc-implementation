@@ -85,6 +85,7 @@ export const useForgotFlow = () => {
         setSuccessMessage(null);
         try {
             await unblockUserApi(payload)
+            setUsername(payload.username)
             setRecoveryType('unblock')
             setStep('otp')
         } catch (err) {

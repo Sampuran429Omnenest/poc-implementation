@@ -85,6 +85,7 @@ export const useLoginFlow = () => {
         setStep,
         initiateHandshake,
         submitCredentials,
-        submitOtp
+        submitOtp,
+        setIsBlocked
     }
 }

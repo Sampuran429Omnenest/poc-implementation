@@ -11,8 +11,8 @@ import { UnblockUserForm } from './components/UnblockUserForm'; // FIX: missing 
 
 const Login = () => {
     const navigate = useNavigate();
-    const { step, loading: loginLoading, error: loginError,isBlocked,setStep, initiateHandshake, submitCredentials, submitOtp } = useLoginFlow();
-    const { loading: forgotLoading, error: forgotError, successMessage, recoveryType, forgetUserId, forgetUserPassword, changeUserPassword, verifyRecoveryOtp, unblockUser } = useForgotFlow();
+    const { step, loading: loginLoading, error: loginError,isBlocked,setStep, initiateHandshake, submitCredentials, submitOtp,setIsBlocked} = useLoginFlow();
+    const { loading: forgotLoading, error: forgotError, successMessage, recoveryType, forgetUserId, forgetUserPassword, changeUserPassword, verifyRecoveryOtp, unblockUser,setSuccessMessage,setRecoveryType } = useForgotFlow();
 
     const isLoading = loginLoading || forgotLoading;
     const currentError = loginError || forgotError;
@@ -24,11 +24,16 @@ const Login = () => {
 
     const handleOtpSubmit = async (otp: number) => {
         try {
+            //always reset recoveryType to null when a recovery flow completes so the next normal login hits the correct else branch.
             if (recoveryType === 'password') {
                 await verifyRecoveryOtp(otp);
+                setRecoveryType(null);
                 setStep('change-password');
             } else if (recoveryType === 'unblock') {
                 await verifyRecoveryOtp(otp);
+                setSuccessMessage("Your account has been successfully unblocked. Please login.");
+                setIsBlocked(false);
+                setRecoveryType(null);
                 setStep('credentials');
             } else {
                 await submitOtp(otp);
@@ -37,10 +42,6 @@ const Login = () => {
             // error handled in hooks
         }
     }
-    console.log(isBlocked)
-    console.log(currentError)
-    console.log(loginError)
-    console.log(forgotError)
     return (
         <>
             {step === 'credentials' && (
