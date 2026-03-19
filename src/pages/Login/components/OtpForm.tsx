@@ -1,18 +1,18 @@
 import { useRef, useState, useEffect } from 'react';
-//import preferences_setup from '../../../assets/Preferences_Setup.svg';
 import logo from '../../../assets/logo.svg';
 import { AdPanel } from './AdPanel';
+
 interface OtpFormProps {
     onSubmit: (otp: number) => Promise<void>;
     loading: boolean;
     error: string | null;
-    purpose: 'login' | 'userid-recovery' | 'password-reset';
+    purpose: 'login' | 'userid-recovery' | 'password-reset' | 'unblock'; // FIX: added 'unblock'
 }
 
 const OTP_LENGTH = 4;
 const RESEND_SECONDS = 30;
 
-export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
+export const OtpForm = ({ onSubmit, loading, error, purpose }: OtpFormProps) => {
     const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''));
     const [timer, setTimer]   = useState(RESEND_SECONDS);
     const inputRefs           = useRef<(HTMLInputElement | null)[]>([]);
@@ -55,19 +55,21 @@ export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
         onSubmit(otp);
     };
 
-    //dynamically change this 
-    const getButtonText=()=>{
-        if(loading) return 'Verifying...'
-        if(purpose==='password-reset') return 'Verify & Set Password'
-        if(purpose==='userid-recovery') return 'Verify & Get User ID';
-        return 'Login'  
+    // FIX: added 'unblock' case
+    const getButtonText = () => {
+        if (loading) return 'Verifying...'
+        if (purpose === 'password-reset')  return 'Verify & Set Password'
+        if (purpose === 'userid-recovery') return 'Verify & Get User ID'
+        if (purpose === 'unblock')         return 'Verify & Unblock'
+        return 'Login'
     }
+
     const allFilled = digits.every(d => d !== '');
     const hasError  = !!error;
 
     return (
         <div className="h-screen w-full flex font-sans overflow-hidden bg-white">
-            <AdPanel/>
+            <AdPanel />
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white px-6 py-12 border-l border-gray-50">
                 <div className="w-full max-w-[350px] flex flex-col gap-10">
                     <div className="flex flex-col gap-2">
@@ -82,13 +84,13 @@ export const OtpForm = ({ onSubmit, loading, error,purpose }: OtpFormProps) => {
                     </div>
 
                     <div className="flex flex-col gap-1">
+                        {/* FIX: added 'unblock' case to title */}
                         <h2 className="text-[#2A2A2B] text-base font-semibold">
-    {purpose === 'password-reset'
-        ? 'Forgot your password'
-        : purpose === 'userid-recovery'
-        ? 'Forgot your User ID'
-        : 'Enter OTP'}
-</h2>
+                            {purpose === 'password-reset'  ? 'Forgot your password'  :
+                             purpose === 'userid-recovery' ? 'Forgot your User ID'   :
+                             purpose === 'unblock'         ? 'Unblock your account'  :
+                             'Enter OTP'}
+                        </h2>
                         <p className="text-[#555555] text-xs">OTP sent on your registered number</p>
                     </div>
 

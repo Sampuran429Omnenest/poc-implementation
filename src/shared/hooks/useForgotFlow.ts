@@ -1,28 +1,34 @@
 import { useState } from "react"
-import type { changePasswordPayload, ForgetPasswordPayload, ForgetUserIdPayload } from "../types/userAuthType"
-import { forgetUserId as forgetUerIdApi,forgetUserPassword as forgetUserPasswordApi,changeUserPassword as changeUserPasswordApi } from "../../api/auth.api"
+import type { changePasswordPayload, ForgetPasswordPayload, ForgetUserIdPayload, unblockUserPayload } from "../types/userAuthType"
+import { forgetUserId as forgetUserIdApi, forgetUserPassword as forgetUserPasswordApi, changeUserPassword as changeUserPasswordApi, authenticateOtp, unblockUser as unblockUserApi } from "../../api/auth.api"
 import { useAuthStore } from "../../store/useAuthStore"
-export const useForgotFlow=()=>{
-    const [loading,setLoading]=useState(false)
-    const [error,setError]=useState<string|null>(null)
-    const [successMessage,setSuccessMessage]=useState<string|null>(null)
-    const [recoveryType,setRecoveryType]=useState<'userid'|'password'|null>(null)
-    const {setStep,setUsername}=useAuthStore();
-    const forgetUserId=async(payload:ForgetUserIdPayload)=>{
+import { parseApiError } from "../utils/parseApiError"
+
+export const useForgotFlow = () => {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
+    const [recoveryType, setRecoveryType] = useState<'userid' | 'password' | 'unblock' | null>(null)
+    const { username, setStep, setUsername } = useAuthStore();
+
+    const forgetUserId = async (payload: ForgetUserIdPayload) => {
         setLoading(true)
         setError(null)
         setSuccessMessage(null);
         try {
-            await forgetUerIdApi(payload)
+            await forgetUserIdApi(payload)
             setRecoveryType('userid');
-            setStep('otp')
+            setSuccessMessage("Your User ID has been sent to your registered mobile/email.")
+            setStep('credentials')
         } catch (err) {
-            setError((err as Error).message)
-        }finally{
+            const { message } = parseApiError(err)
+            setError(message)
+        } finally {
             setLoading(false)
         }
     }
-    const forgetUserPassword=async(payload:ForgetPasswordPayload)=>{
+
+    const forgetUserPassword = async (payload: ForgetPasswordPayload) => {
         setLoading(true)
         setError(null)
         setSuccessMessage(null);
@@ -32,26 +38,64 @@ export const useForgotFlow=()=>{
             setRecoveryType('password')
             setStep('otp')
         } catch (err) {
-            setError((err as Error).message)
-        }finally{
+            const { message } = parseApiError(err)
+            setError(message)
+        } finally {
             setLoading(false)
         }
     }
-    const changeUserPassword=async(payload:changePasswordPayload)=>{
+
+    const changeUserPassword = async (payload: changePasswordPayload) => {
         setLoading(true)
         setError(null)
         setSuccessMessage(null);
         try {
-            await changeUserPasswordApi(payload)
+            await changeUserPasswordApi({
+                username: username!,
+                newPassword: payload.newPassword,
+            })
             setSuccessMessage("Password is set successfully.")
             setStep('credentials')
         } catch (err) {
-            setError((err as Error).message)
-        }finally{
+            const { message } = parseApiError(err)
+            setError(message)
+        } finally {
             setLoading(false)
         }
     }
-    return{
+
+    const verifyRecoveryOtp = async (otp: number) => {
+        if (!username) return;
+        setLoading(true);
+        setError(null);
+        try {
+            await authenticateOtp({ otp, username, isUserBlocked: recoveryType === 'unblock' })
+        } catch (err) {
+            const { message } = parseApiError(err)
+            setError(message)
+            throw err;
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const unblockUser = async (payload: unblockUserPayload) => {
+        setLoading(true)
+        setError(null)
+        setSuccessMessage(null);
+        try {
+            await unblockUserApi(payload)
+            setRecoveryType('unblock')
+            setStep('otp')
+        } catch (err) {
+            const { message } = parseApiError(err)
+            setError(message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return {
         loading,
         error,
         successMessage,
@@ -60,6 +104,8 @@ export const useForgotFlow=()=>{
         forgetUserPassword,
         changeUserPassword,
         setSuccessMessage,
-        setRecoveryType
+        setRecoveryType,
+        verifyRecoveryOtp,
+        unblockUser
     }
 }

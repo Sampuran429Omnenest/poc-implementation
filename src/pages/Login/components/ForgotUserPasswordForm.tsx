@@ -110,7 +110,21 @@ export const ForgotUserPasswordForm = ({
                         <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-8">
                             <div className="flex flex-col gap-6">
 
-                                {/* PAN */}
+                                
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[#555555] text-sm font-medium">Client ID</label>
+                                    <input
+                                        {...register('username')}
+                                        placeholder="Enter user ID"
+                                        className={`h-[48px] border rounded px-4 focus:outline-none focus:border-[#0F62FE] transition-colors ${errors.username ? 'border-red-500' : 'border-[#ECEDEE]'}`}
+                                    />
+                                    {errors.username && (
+                                        <p className="text-red-500 text-[11px] mt-1">{errors.username.message}</p>
+                                    )}
+                                </div>
+
+
                                 <div className="flex flex-col gap-2">
                                     <label className="text-[#555555] text-sm font-medium">PAN</label>
                                     <input
@@ -124,17 +138,7 @@ export const ForgotUserPasswordForm = ({
                                 </div>
 
                                
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-[#555555] text-sm font-medium">Client ID</label>
-                                    <input
-                                        {...register('username')}
-                                        placeholder="Enter ID"
-                                        className={`h-[48px] border rounded px-4 focus:outline-none focus:border-[#0F62FE] transition-colors ${errors.username ? 'border-red-500' : 'border-[#ECEDEE]'}`}
-                                    />
-                                    {errors.username && (
-                                        <p className="text-red-500 text-[11px] mt-1">{errors.username.message}</p>
-                                    )}
-                                </div>
+                                
 
                             </div>
 
@@ -152,7 +156,7 @@ export const ForgotUserPasswordForm = ({
                                     disabled={loading}
                                     className={`w-full h-[48px] text-white font-semibold rounded active:scale-[0.98] transition-all ${loading ? 'bg-gray-300' : 'bg-[#0F62FE] hover:bg-blue-700'}`}
                                 >
-                                    {loading ? 'Processing...' : 'Reset Password'}
+                                    {loading ? 'Processing...' : 'Proceed'}
                                 </button>
 
                                 <div className="flex items-center gap-1 justify-center">

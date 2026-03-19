@@ -16,20 +16,14 @@ export const setupInterceptors = () => {
     api.interceptors.response.use(
         (response) => response,
         (error) => {
-            const status = error?.response?.status;
-            const { reset } = useAuthStore.getState();
+            // const status = error?.response?.status;
+            // const { reset } = useAuthStore.getState();
 
-            if (status === 401) {
-                reset();
-                window.location.href = '/'; //for now keeping it / it should be again redirected to /login if wrong 
-            }
-
-            const message =
-                error?.response?.data?.message ??
-                error?.message ??
-                'Something went wrong.';
-
-            return Promise.reject(new Error(message));
+            // if (status === 401) {
+            //     reset();
+            //     window.location.href = '/'; //for now keeping it / it should be again redirected to /login if wrong 
+            // }
+            return Promise.reject(error);
         }
     );
 };

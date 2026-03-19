@@ -13,17 +13,21 @@ interface LoginFormProps {
     onSubmit: (payload: LoginPayload) => Promise<void>;
     onForgotUserId: () => void;
     onForgotPassword: () => void;
+    onUnblockUser: () => void;
     loading: boolean;
     error: string | null;
     successMessage:string|null;
+    isBlocked:boolean
 }
 
 export const LoginForm = ({ 
     onSubmit,  
     onForgotUserId,
+    onUnblockUser,
     loading, 
     error,
-    successMessage
+    successMessage,
+    isBlocked
 }: LoginFormProps) => {
     const {
         register,
@@ -170,9 +174,22 @@ export const LoginForm = ({
                                 </button>
                             </div>
                         </div>
-
-                        
-                        {error && <ErrorAlert message={"Invalid username or password"} />}
+                        {isBlocked ? (
+                            <div className="bg-[#FAEBE9] border border-[#f5d0cc] p-3 rounded flex items-center justify-between gap-3">
+                                <span className="text-red-600 text-xs font-medium">
+                                    Your account has been blocked due to multiple failed attempts.
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={onUnblockUser}
+                                    className="text-[#0F62FE] text-[12px] font-semibold whitespace-nowrap hover:underline shrink-0"
+                                >
+                                    Unblock Account
+                                </button>
+                            </div>
+                        ):(
+                            error && <ErrorAlert message="Invalid username or password" />
+                        )}
                     </form>
                 </div>
             </div>

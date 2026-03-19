@@ -10,6 +10,11 @@ import type {
     ForgetPasswordPayload,
     ForgetPasswordResponse,
     changePasswordPayload,
+    AuthenticateOtpPayload,
+    AuthenticateOtpResponse,
+    changePasswordResponse,
+    unblockUserPayload,
+    unblockUserResponse,
 } from '../shared/types/userAuthType';
 
 export const preAuthHandshake = async (): Promise<PreAuthResponse> => {
@@ -46,6 +51,17 @@ export const validateOtp = async (payload: OtpPayload): Promise<ValidateOtpRespo
     return response.data;
 };
 
+export const authenticateOtp=async(payload:AuthenticateOtpPayload):Promise<AuthenticateOtpResponse>=>{
+    await api.post(
+        '/v1/api/auth/authenticate-otp',
+        {
+            otp:payload.otp,
+            username:payload.username,
+            isUserBlocked:payload.isUserBlocked,
+        },
+        {headers:getAuthHeaders()}
+    );
+};
 export const forgetUserId=async (payload:ForgetUserIdPayload):Promise<ForgetUserIdResponse>=>{
     await api.post(
         '/v1/api/auth/forgot-user-id',
@@ -68,14 +84,24 @@ export const forgetUserPassword=async (payload:ForgetPasswordPayload):Promise<Fo
     );
 };
 
-export const changeUserPassword=async (payload:changePasswordPayload):Promise<void>=>{
+export const changeUserPassword=async (payload:changePasswordPayload):Promise<changePasswordResponse>=>{
     await api.post(
-        '/v1/api/auth/change-password',
+        '/v1/api/auth/set-password',
         {
-            oldPassword:payload.oldPassword,
+            username:payload.username,
             newPassword:payload.newPassword,
         },
         {headers:getAuthHeaders()},
     );
 };
 
+export const unblockUser=async (payload:unblockUserPayload):Promise<unblockUserResponse>=>{
+    await api.post(
+        '/v1/api/auth/unblock-user',
+        {
+            username:payload.username,
+            panNumber:payload.panNumber,
+        },
+        {headers:getAuthHeaders()},
+    );
+};
