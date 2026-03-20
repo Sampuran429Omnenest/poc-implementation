@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginFlow } from '../../shared/hooks/useLoginFlow';
-import { LoginForm } from './components/LoginForm';
-import { OtpForm } from './components/OtpForm';
-import { ForgotUserIdForm } from './components/ForgotUserIdForm';
-import { ForgotUserPasswordForm } from './components/ForgotUserPasswordForm';
+import { LoginForm } from '../../features/auth/Login/components/LoginForm';
+import { OtpForm } from '../../features/auth/Login/components/OtpForm';
+import { ForgotUserIdForm } from '../../features/auth/Login/components/ForgotUserIdForm';
+import { ForgotUserPasswordForm } from '../../features/auth/Login/components/ForgotUserPasswordForm';
 import { useForgotFlow } from '../../shared/hooks/useForgotFlow';
-import { ChangeUserPasswordForm } from './components/ChangeUserPasswordForm';
-import { UnblockUserForm } from './components/UnblockUserForm'; // FIX: missing import
-
+import { ChangeUserPasswordForm } from '../../features/auth/Login/components/ChangeUserPasswordForm';
+import { UnblockUserForm } from '../../features/auth/Login/components/UnblockUserForm';
 const Login = () => {
     const navigate = useNavigate();
     const { step, loading: loginLoading, error: loginError,isBlocked,setStep, initiateHandshake, submitCredentials, submitOtp,setIsBlocked} = useLoginFlow();

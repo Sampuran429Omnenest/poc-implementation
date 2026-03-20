@@ -2,11 +2,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdPanel } from "./AdPanel";
 import { changePasswordSchema } from "../schema/changePasswordSchema";
-import logo from '../../../assets/logo.svg';
+import logo from "../../../../assets/logo.svg"
 import { ErrorAlert } from "./ErrorAlert";
 import { PasswordField } from "./PasswordField";
-import type { changePasswordPayload } from "../../../shared/types/userAuthType";
-
+import type { changePasswordPayload } from "../../../../shared/types/userAuthType";
 type ChangePasswordFormFields = {
     password: string;
     reenterPassword: string;

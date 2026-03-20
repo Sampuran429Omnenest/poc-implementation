@@ -1,4 +1,4 @@
-import preferences_setup from '../../../assets/Preferences_Setup.svg';
+import preferences_setup from '../../../../assets/Preferences_Setup.svg';
 export const AdPanel=()=>{
     return(
           <div className="hidden lg:flex flex-col relative w-1/2 items-center justify-center p-6 xl:p-12 overflow-hidden bg-white">

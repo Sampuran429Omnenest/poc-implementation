@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchemaWithUserCheck, type LoginFormValues } from '../schema/login.schema';
 import { PasswordField } from './PasswordField';
 import { ErrorAlert } from './ErrorAlert';
-import type { LoginPayload } from '../../../shared/types/userAuthType';
-import logo from '../../../assets/logo.svg';
+import type { LoginPayload } from '../../../../shared/types/userAuthType';
+import logo from '../../../../assets/logo.svg';
 //import preferences_setup from '../../../assets/Preferences_Setup.svg';
-import qrSvg from '../../../assets/qr.svg';
+import qrSvg from '../../../../assets/qr.svg';
 import { AdPanel } from './AdPanel';
 
 interface LoginFormProps {

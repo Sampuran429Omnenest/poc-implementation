@@ -11,8 +11,8 @@
     - Can’t contain userid
 - **PR 2.5**: Forgot User ID
 - **PR 2.6**: Forgot Password
-- **Change Password form creation and logic
-- **Unblock User with authenticate otp form creation and logic 
+- Change Password form creation and logic
+- Unblock User with authenticate otp form creation and logic 
 
 ## Folder Structure
 
@@ -38,10 +38,9 @@ src/
     assets/
         bootstrap/
             services.ts
-    pages/
-        Login/
-            Login.tsx
-            components/
+    features/
+       auth/Login
+           components/
                 AdPanel.tsx(Reusable)
                 ChangeUserPasswordForm.tsx
                 ErrorAlert.tsx(Reusable)
@@ -55,6 +54,9 @@ src/
             schema/
                 login.otpSchema.ts
                 login.schema.ts
+    pages/
+        Login/
+            Login.tsx
     routes/
         ProtectedRoute.tsx
         PublicRoute.tsx

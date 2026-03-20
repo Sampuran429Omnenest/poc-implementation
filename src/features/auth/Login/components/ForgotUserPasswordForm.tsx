@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import logo from '../../../assets/logo.svg';
-import type { ForgetPasswordPayload } from '../../../shared/types/userAuthType';
+import logo from '../../../../assets/logo.svg';
+import type { ForgetPasswordPayload } from '../../../../shared/types/userAuthType';
 import { AdPanel } from './AdPanel';
-import goBack from '../../../assets/goBack.svg';
+import goBack from "../../../../assets/goBack.svg"
 
 const schema = z.object({
     panNumber: z

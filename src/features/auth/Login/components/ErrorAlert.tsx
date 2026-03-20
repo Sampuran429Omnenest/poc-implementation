@@ -1,4 +1,4 @@
-import errorIcon from '../../../assets/errorIcon.svg';
+import errorIcon from '../../../../assets/errorIcon.svg';
 
 export const ErrorAlert = ({ message }: { message: string }) => (
     <div 

@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
-import logo from '../../../assets/logo.svg';
+import logo from '../../../../assets/logo.svg';
 import { AdPanel } from './AdPanel';
 
 interface OtpFormProps {
     onSubmit: (otp: number) => Promise<void>;
     loading: boolean;
     error: string | null;
-    purpose: 'login' | 'userid-recovery' | 'password-reset' | 'unblock'; // FIX: added 'unblock'
+    purpose: 'login' | 'userid-recovery' | 'password-reset' | 'unblock'; 
 }
 
 const OTP_LENGTH = 4;
