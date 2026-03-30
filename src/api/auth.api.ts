@@ -89,7 +89,7 @@ export const changeUserPassword=async (payload:changePasswordPayload):Promise<ch
         '/v1/api/auth/set-password',
         {
             username:payload.username,
-            newPassword:payload.newPassword,
+            password:payload.newPassword,
         },
         {headers:getAuthHeaders()},
     );
