@@ -1,1 +1,18 @@
+/* 1. Import Google Font FIRST */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* 2. Import Tailwind v4 */
 @import "tailwindcss";
+
+/* 3. Tell Tailwind v4 to use Inter as the default sans font */
+@theme {
+  --font-sans: "Inter", sans-serif;
+}
+
+/* 4. Apply your global background and text colors */
+@layer base {
+  body {
+    background-color: #f9f9f9;
+    color: #2a2a2b;
+  }
+}

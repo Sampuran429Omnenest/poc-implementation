@@ -2,10 +2,7 @@
 import { OrderBook } from "../features/orders/components/OrderBook";
 const OrdersPage = () => {
     return (
-        <div>
-            {/* The OrderBook component will automatically handle fetching, 
-              mocking data, loading states, and rendering the table! 
-            */}
+        <div className="h-screen w-full bg-[#F9F9F9] p-6">
             <OrderBook />
         </div>
     );
